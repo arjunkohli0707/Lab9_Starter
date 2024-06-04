@@ -69,21 +69,21 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id="log-btn">Console Log</button>
+      <button id="error-btn">Console Error</button>
+      <button id="count-btn">Console Count</button>
+      <button id="warn-btn">Console Warn</button>
+      <button id="assert-btn">Console Assert</button>
+      <button id="clear-btn">Console Clear</button>
+      <button id="dir-btn">Console Dir</button>
+      <button id="dirxml-btn">Console dirxml</button>
+      <button id="start-btn">Console Group Start</button>
+      <button id="end-btn">Console Group End</button>
+      <button id="table-btn">Console Table</button>
+      <button id="start-timer-btn">Start Timer</button>
+      <button id="end-timer-btn">End Timer</button>
+      <button id="trace-btn">Console Trace</button>
+      <button id="global-error-btn">Trigger a Global Error</button>
     </section>
   </main>
 
@@ -102,6 +102,83 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    document.getElementById('log-btn').addEventListener('click', () => {
+      console.log('Console Log button clicked!');
+    });
+
+    document.getElementById('error-btn').addEventListener('click', () => {
+      try{
+        noSuchVar; //if you comment this line of code out, the entire try block is executed along with finally
+        console.log("Great job!");
+      }
+      catch{
+        console.error('This is a console error message.');
+      }
+
+      finally{
+        console.log('You know the rules and so do I.');
+      }
+    });
+
+    document.getElementById('count-btn').addEventListener('click', () => {
+      console.count('Count button clicked');
+    });
+
+    document.getElementById('warn-btn').addEventListener('click', () => {
+      console.warn('This is a console warning message.');
+    }); 
+
+    document.getElementById('assert-btn').addEventListener('click', () => {
+      console.assert(false, 'This assertion failed!');
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      console.clear();
+    });
+
+    document.getElementById('dir-btn').addEventListener('click', () => {
+      console.dir(document.body);
+    });
+
+    document.getElementById('dirxml-btn').addEventListener('click', () => {
+      console.dirxml(document.body);
+    });
+
+    document.getElementById('start-btn').addEventListener('click', () => {
+      console.group();
+      console.log('Inside group');
+    });
+
+    document.getElementById('end-btn').addEventListener('click', () => {
+      console.groupEnd();
+    });
+
+    document.getElementById('table-btn').addEventListener('click', () => {
+      console.table([{ name: "Arjun", age: 20 }, { name: "Poopoo", age: 25 }]);
+    });
+
+    document.getElementById('start-timer-btn').addEventListener('click', () => {
+      console.time('Timer');
+    });
+
+    document.getElementById('end-timer-btn').addEventListener('click', () => {
+      console.timeEnd('Timer');
+    });
+
+    document.getElementById('trace-btn').addEventListener('click', () => {
+      function foo() {
+        function bar() {
+          console.trace();
+        }
+        bar();
+      }
+
+      foo();
+    });
+
+    document.getElementById('global-error-btn').addEventListener('click', () => {
+      throw new Error('This is a global error!');
+    });
   </script>
 </body>
 
