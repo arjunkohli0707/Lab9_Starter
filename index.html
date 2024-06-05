@@ -47,6 +47,15 @@
       width: 122px;
     }
   </style>
+
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "8276612163334457b307c6ac32a63efc"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                          
 </head>
 
 <body>
@@ -128,8 +137,30 @@
       console.warn('This is a console warning message.');
     }); 
 
+    class CustomError extends Error {
+      constructor(message){
+        super(message);
+        this.name = "CustomError";
+      }
+
+    }
     document.getElementById('assert-btn').addEventListener('click', () => {
-      console.assert(false, 'This assertion failed!');
+      //console.assert(false, 'This assertion failed!');
+      try{
+        let condition = false;
+        if(!condition){
+          throw new CustomError('Custom error: the condition was not met!')
+        }
+      } catch(error){
+        if (error instanceof CustomError) {
+            const num = 3;
+            const errormsg = "the # is not even"
+            console.error('Assertion Failed:', error.message);
+            console.assert(num % 2 === 0, "%o", {num ,  errormsg})
+        } else {
+            console.error('Caught an unexpected error:', error);
+        }
+      }
     });
 
     document.getElementById('clear-btn').addEventListener('click', () => {
@@ -179,6 +210,11 @@
     document.getElementById('global-error-btn').addEventListener('click', () => {
       throw new Error('This is a global error!');
     });
+
+    window.onerror = function(message, source, lineno, colno, error) {
+      console.log('Sadly an error has been caught');
+    }
+
   </script>
 </body>
 
